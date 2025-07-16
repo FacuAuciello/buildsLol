@@ -1,5 +1,3 @@
-#MENU PRINCIPAL
-
 def mostrarMenu():
     print("BIENVENIDO A LA GUIA DE BUILDS DE LEAGUE OF LEGENDS\n------MENU PRINCIPAL------\n1.Ver Builds por campeon (por el momento solo ADC...)\n2.Agregar una Build nueva\n3.Eliminar una Build\n4.Simular un duelo entre dos Builds\n5.Salir") #\n para los saltos de linea
 
@@ -22,6 +20,7 @@ def calculoDanio(build):
     sumaDanio = 0
     for k in build:
         sumaDanio += damageObjetos[k]
+    return sumaDanio
 
 
 #movi los diccionarios porque los habia puesto dentro del if y claramente viven ahi adentro, no me reconocia que estaban inicializados
@@ -177,14 +176,16 @@ elif numero == 4:
 
     for i, build in enumerate(builds[campeon1]):
         print(f"Build {i + 1}: {' - '.join(build)}")
-        indiceBuild = int(input("Selecciona la Build: ")) - 1
+    indiceBuild = int(input("Selecciona la Build: ")) - 1
+    build1 = builds[campeon1][indiceBuild]
     
     campeon2 = diccionario[opcion2]
     print(f"Seleccionaste:{campeon2}")
     
     for i, build in enumerate(builds[campeon2]):
         print(f"Build {i + 1}: {' - '.join(build)}")
-        indiceBuild = int(input("Selecciona la Build: ")) - 1
+    indiceBuild = int(input("Selecciona la Build: ")) - 1
+    build2 = builds[campeon2][indiceBuild]
     
     import time
     print("La batalla comienza en...")
@@ -192,20 +193,21 @@ elif numero == 4:
         print(i)
     time.sleep(1)
 
-    danio1 = calculoDanio(build)
-    danio2 = calculoDanio(build)
+    danio1 = calculoDanio(build1)
+    danio2 = calculoDanio(build2)
 
     if danio1 > danio2:
         print(f"El ganador es {campeon1} con un danio total de: {danio1}")
     else:
         print(f"El ganador es {campeon2} con un danio total de: {danio2}")
 
+    print(f"\nDaño de cada objeto de {campeon1}:")
+    for item in build1:
+        print(f"{item}: {damageObjetos[item]}")
 
-    #danioTotal = 0
-    #for item in build:
-    #    danioTotal += damageObjetos[item]
-
-    
+    print(f"\nDaño de cada objeto de {campeon2}:")
+    for item in build2:
+        print(f"{item}: {damageObjetos[item]}")
 
 elif numero == 5:
     print("Hasta luego INVOCADOR")
