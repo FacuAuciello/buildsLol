@@ -22,6 +22,19 @@ def calculoDanio(build):
         sumaDanio += damageObjetos[k]
     return sumaDanio
 
+def volver():
+    while True:
+        usuario = str.upper(input("Presiona 'V' para volver al Menu: "))
+        if usuario == "V":
+            print("Volviendo al Menu...")
+            break
+        else:
+            print("ERROR. Presiona 'V' para volver al Menu: ")
+        
+
+
+
+
 
 #movi los diccionarios porque los habia puesto dentro del if y claramente viven ahi adentro, no me reconocia que estaban inicializados
 diccionario = {
@@ -118,99 +131,108 @@ damageObjetos = {
     "Sombrero mortal de Rabadon": 130,
 }
 
-mostrarMenu()
-numero = int(input("Ingresa el numero de la opcion que deseas ver: "))
+while True: #se va a ejecutar siempre, hasta que el usuario quiera salir
 
-if numero == 1:
-    verBuilds()
+    mostrarMenu()
+    numero = int(input("Ingresa el numero de la opcion que deseas ver: "))
 
-    nombre = int(input("Selecciona el numero del campeon que quieras: "))
-    campeon = diccionario[nombre]
-    print(f"Seleccionaste: {campeon}")
+    if numero == 1:
+        verBuilds()
+        
+        nombre = int(input("Selecciona el numero del campeon que quieras: "))
+        campeon = diccionario[nombre]
+        print(f"Seleccionaste: {campeon}")
     
-    for i, build in enumerate(builds[campeon]):
-        print(f"Build {i + 1}: {' - '.join(build)}") #join toma una lista de strings y los une en una sola cadena, toma cada item de la build. Lo que va adelante de join es lo que se usa como separador.
+        for i, build in enumerate(builds[campeon]):
+            print(f"Build {i + 1}: {' - '.join(build)}") #join toma una lista de strings y los une en una sola cadena, toma cada item de la build. Lo que va adelante de join es lo que se usa como separador.
 
-elif numero == 2:
-    agregarBuilds()
+        volver()
 
-    buildNueva = int(input("Selecciona el numero del campeon que quieras agregarle una Build nueva: "))
-    campeon = diccionario[buildNueva]
-    print(f"Seleccionaste: {campeon}")
+    elif numero == 2:
+        agregarBuilds()
+
+        buildNueva = int(input("Selecciona el numero del campeon que quieras agregarle una Build nueva: "))
+        campeon = diccionario[buildNueva]
+        print(f"Seleccionaste: {campeon}")
     
-    listaItems = []
-    for j in range(5):
-        items = str(input("Ingresa el item: "))
-        listaItems.append(items)
-    print("Build nueva para", campeon, ":", " - ".join(listaItems))
+        listaItems = []
+        for j in range(5):
+            items = str(input("Ingresa el item: "))
+            listaItems.append(items)
+            print("Build nueva para", campeon, ":", " - ".join(listaItems))
 
-    if campeon in builds:
-        builds[campeon].append(listaItems)
-    else: 
-        builds[campeon] = [listaItems]
+            if campeon in builds:
+                builds[campeon].append(listaItems)
+            else: 
+                builds[campeon] = [listaItems]
+        
+        volver()
 
-elif numero == 3:
-    eliminarBuilds()
+    elif numero == 3:
+        eliminarBuilds()
 
-    eliminarBuild = int(input("Selecciona el campeon que queres eliminarle una Build: "))
-    campeon = diccionario[eliminarBuild]
-    print(f"Seleccionaste:{campeon}")
+        eliminarBuild = int(input("Selecciona el campeon que queres eliminarle una Build: "))
+        campeon = diccionario[eliminarBuild]
+        print(f"Seleccionaste:{campeon}")
     
     
-    for j, build in enumerate(builds[campeon]): #J es la variable que representa el indice numero y build representa el valor de la lista en esa posicion. 
-        print(f"Build {j + 1}: {' - '.join(build)}") #Enumerate nos da los dos valores en cada iteracion. La coma (en linea 98) permite desempaquetar esos dos valores en dos variables distintas
-        indiceBuild = int(input("Selecciona la Build que queres eliminar: ")) - 1 #si pone 1 se rompe, arranca desde el 0 pa
-        del builds[campeon][indiceBuild]
-    print("Build eliminada correctamente")
+        for j, build in enumerate(builds[campeon]): #J es la variable que representa el indice numero y build representa el valor de la lista en esa posicion. 
+            print(f"Build {j + 1}: {' - '.join(build)}") #Enumerate nos da los dos valores en cada iteracion. La coma (en linea 98) permite desempaquetar esos dos valores en dos variables distintas
+            indiceBuild = int(input("Selecciona la Build que queres eliminar: ")) - 1 #si pone 1 se rompe, arranca desde el 0 pa
+            del builds[campeon][indiceBuild]
+            print("Build eliminada correctamente")
     
+        volver()
 
-elif numero == 4:
-    print("------SIMULAR BATALLA DE BUILDS------")
-    mostrarCampeones()
+    elif numero == 4:
+        print("------SIMULAR BATALLA DE BUILDS------")
+        mostrarCampeones()
     
-    opcion1 = int(input("Selecciona el primer campeon para la batalla: "))
-    opcion2 = int(input("Selecciona el segundo campeon para la batalla: "))
+        opcion1 = int(input("Selecciona el primer campeon para la batalla: "))
+        opcion2 = int(input("Selecciona el segundo campeon para la batalla: "))
 
-    campeon1 = diccionario[opcion1]
-    print(f"Seleccionaste:{campeon1}")
+        campeon1 = diccionario[opcion1]
+        print(f"Seleccionaste:{campeon1}")
 
-    for i, build in enumerate(builds[campeon1]):
-        print(f"Build {i + 1}: {' - '.join(build)}")
-    indiceBuild = int(input("Selecciona la Build: ")) - 1
-    build1 = builds[campeon1][indiceBuild]
+        for i, build in enumerate(builds[campeon1]):
+            print(f"Build {i + 1}: {' - '.join(build)}")
+        indiceBuild = int(input("Selecciona la Build: ")) - 1
+        build1 = builds[campeon1][indiceBuild]
     
-    campeon2 = diccionario[opcion2]
-    print(f"Seleccionaste:{campeon2}")
+        campeon2 = diccionario[opcion2]
+        print(f"Seleccionaste:{campeon2}")
     
-    for i, build in enumerate(builds[campeon2]):
-        print(f"Build {i + 1}: {' - '.join(build)}")
-    indiceBuild = int(input("Selecciona la Build: ")) - 1
-    build2 = builds[campeon2][indiceBuild]
+        for i, build in enumerate(builds[campeon2]):
+            print(f"Build {i + 1}: {' - '.join(build)}")
+        indiceBuild = int(input("Selecciona la Build: ")) - 1
+        build2 = builds[campeon2][indiceBuild]
     
-    import time
-    print("La batalla comienza en...")
-    for i in range(3, 0, -1):
-        print(i)
-    time.sleep(1)
+        import time
+        print("La batalla comienza en...")
+        for i in range(3, 0, -1):
+            print(i)
+        time.sleep(1)
 
-    danio1 = calculoDanio(build1)
-    danio2 = calculoDanio(build2)
+        danio1 = calculoDanio(build1)
+        danio2 = calculoDanio(build2)
 
-    if danio1 > danio2:
-        print(f"El ganador es {campeon1} con un danio total de: {danio1}")
+        if danio1 > danio2:
+            print(f"El ganador es {campeon1} con un danio total de: {danio1}")
+        else:
+            print(f"El ganador es {campeon2} con un danio total de: {danio2}")
+
+        print(f"\nDaño de cada objeto de {campeon1}:")
+        for item in build1:
+            print(f"{item}: {damageObjetos[item]}")
+
+        print(f"\nDaño de cada objeto de {campeon2}:")
+        for item in build2:
+            print(f"{item}: {damageObjetos[item]}")
+
+        volver()
+
+    elif numero == 5:
+        print("Hasta luego INVOCADOR")
+        break
     else:
-        print(f"El ganador es {campeon2} con un danio total de: {danio2}")
-
-    print(f"\nDaño de cada objeto de {campeon1}:")
-    for item in build1:
-        print(f"{item}: {damageObjetos[item]}")
-
-    print(f"\nDaño de cada objeto de {campeon2}:")
-    for item in build2:
-        print(f"{item}: {damageObjetos[item]}")
-
-elif numero == 5:
-    print("Hasta luego INVOCADOR")
-
-else:
-    print("ERROR. Ingresa un numero correcto")
+        print("ERROR. Ingresa un numero correcto")
